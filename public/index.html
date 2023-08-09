@@ -1,0 +1,142 @@
+<html>
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Coming+Soon&family=Oswald:wght@700&display=swap" rel="stylesheet"> 
+        
+        <style>
+        
+            html, body{
+                margin: 0;
+                padding: 0;
+                color: #fff;
+                background: #000;
+                font-size: 2pt;
+                font-family: 'Coming Soon', cursive;
+                font-family: 'Oswald', sans-serif;
+            }
+            
+            @media (max-width: 480px) {
+              html, body{
+                font-size: 1pt;
+              }
+            }
+            @media (min-width: 1000px) {
+              html, body{
+                font-size: 3px;
+              }
+            }
+            @media (min-width: 2000px) {
+              html, body{
+                font-size: 4px;
+              }
+            }
+            @media (min-width: 3000px) {
+              html, body{
+                font-size: 5px;
+              }
+            }
+            
+            h1{
+                
+            }
+            
+            .off{
+                display: none;
+            }
+            
+            
+            @keyframes fade-keys {
+              0% {opacity: 1.0;
+                  display: block;
+              }
+              5% {opacity: 1.0;
+                  display: block;
+              }
+              100% {opacity: 0.0;
+                  display: none;
+                  font-size: 0pt;
+              }
+            }
+            
+            .fade{
+                animation: fade-keys 4s forwards;
+            }
+            
+            a {
+                color: white;
+            }
+            
+            .btn {
+                width: 10rem;
+                font-size: 20rem;
+                top: 50%;
+                position: absolute;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+            
+            .e {
+                position: absolute;
+                
+            }
+        </style>
+    </head>
+    <body>
+        <h1 id="example_dom" class="off fade e">E</h1>
+        <a id="startBtn" href="#" class="btn" onclick="startE()">START</a>
+        <script>
+            var time = 1000
+            var duration = 0
+            const audio = new Audio("e.mp3");
+            
+            audio.addEventListener("loadeddata", () => {
+              duration = audio.duration * 1000;
+              console.log(duration)
+            });
+            
+            const e_dom = document.getElementById('example_dom')
+            const startBtn = document.getElementById('startBtn')
+            var scalable_dom = null
+            var isPressed = false
+            
+            function play() {
+                audio.play()
+                
+                var clone_dom = e_dom.cloneNode(true)
+                scalable_dom = document.body.appendChild(clone_dom)
+                scalable_dom.classList.toggle("off")
+                scalable_dom.style.fontSize = `${Math.floor(Math.random() * 41) + 100}rem`
+                scalable_dom.style.lineHeight = scalable_dom.style.fontSize
+                scalable_dom.style.left = `${50 + Math.floor(Math.random() * 21) - 10}%`
+                scalable_dom.style.top = `${50 + Math.floor(Math.random() * 21) - 10}%`
+                deg = Math.floor(Math.random() * 31)
+                var tr = `translate(-50%, -50%) rotate(${deg - 15}deg)`
+                
+                scalable_dom.style.transform = tr
+                scalable_dom.style.webkitTransform = tr
+                scalable_dom.style.msTransform = tr
+                
+                
+                
+                //scalable_dom.style += `rotate(${deg}deg)`
+                
+                console.log(scalable_dom.style)
+                
+                setTimeout(() => {scalable_dom.remove()}, duration)
+                
+                setTimeout(play, Math.floor(Math.random() * 301) * 1000 + duration)
+            }
+            
+            function startE(){
+                if(isPressed === true) return
+                console.log("start")
+                isPressed = true
+                startBtn.classList.add("fade")
+                setTimeout(()=>{startBtn.remove()}, 5000)
+                
+                play()
+            }
+        </script>
+    </body>
+</html>
